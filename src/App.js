@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Product from './components/Product.tsx';
 import Select from './components/Select.tsx';
+import Search from './components/Search.tsx';
 import categories from './categories.json';
 import products from './products.json';
 
@@ -57,6 +58,13 @@ class App extends Component {
             options={ this.state.categories }
             onSelectChange={ this.updateCategoryFilter }
           />
+          <div className="search">
+            <Search 
+              inputSet={ this.state.products }
+              searchFieldName={ 'title' }
+              minimumSearchLength={ 2 }
+            />
+          </div>
         </div>
         <div className="products">
           { productList }
