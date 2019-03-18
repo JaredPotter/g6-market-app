@@ -11,16 +11,26 @@
     }
 
     .price {
-        
+
     }
 
     .img {
-        border: 1px solid black;
+        display: flex;
+        justify-content: center;
+        // width: 65%;
+
+        img {
+            border: 1px solid black;
+            object-fit: cover;
+        }
     }
 
     .bottom {
         display: flex;
         justify-content: space-between;
-
+        
+        .add-to-cart-button {
+            // width: 100%;
+        }
     }
 }

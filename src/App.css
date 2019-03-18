@@ -1,10 +1,12 @@
 .App {
   display: flex;
   justify-content: center;
+  flex-direction: column;
   width: 1200px;
 }
 
-.product {
+.products {
   width: 400px;
   height: 350px;
+  display: flex;
 }

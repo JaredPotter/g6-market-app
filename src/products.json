@@ -1,0 +1,32 @@
+[
+    {
+      "title": "Bananas",
+      "price": 0.99,
+      "imageUrl": "https://i5.walmartimages.com/asr/ad01e2d0-c67e-463f-9caf-b7c1995f40b3_1.7f58d030e8c04579b77174e274d31747.jpeg?odnWidth=200&odnHeight=200&odnBg=ffffff",
+      "category": "produce"
+    },
+    {
+      "title": "Milk",
+      "price": 1.99,
+      "imageUrl": "https://i5.walmartimages.com/asr/ddab78cb-2601-47a3-8fef-366ab2093f82_1.9a4319e209ea26185582e96b0e841ee2.png?odnWidth=200&odnHeight=200&odnBg=ffffff",
+      "category": "dairy"
+    },
+    {
+      "title": "Whole Chicken",
+      "price": 4.99,
+      "imageUrl": "https://i5.walmartimages.com/asr/b7cd6122-8623-4401-ae81-b51ee9b8bcd7_1.954939f8326abd871491850162f69479.jpeg?odnWidth=200&odnHeight=200&odnBg=ffffff",
+      "category": "meat"
+    },
+    {
+      "title": "Eggs",
+      "price": 1.19,
+      "imageUrl": "https://i5.walmartimages.com/asr/b95c5b36-e474-4063-99a8-b7334c965228_1.cdbbf124259b17bbba8e4da078f08c00.jpeg?odnWidth=200&odnHeight=200&odnBg=ffffff",
+      "category": "dairy"
+    },
+    {
+      "title": "Apples",
+      "price": 1.39,
+      "imageUrl": "https://i5.walmartimages.com/asr/503e4076-0eb6-41ac-9bad-1f2dfa6683cb_1.5b25f9026e63df772dfc414cf738257b.jpeg?odnWidth=200&odnHeight=200&odnBg=ffffff",
+      "category": "produce"
+    }
+  ]

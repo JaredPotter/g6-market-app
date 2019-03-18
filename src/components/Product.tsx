@@ -1,5 +1,6 @@
 import * as React from "react";
 import './Product.scss';
+import Dollar from './Dollar';
 
 export interface ProductProps {
     title: string;
@@ -14,11 +15,13 @@ export default class Product extends React.Component<ProductProps, {}> {
       <div>
         <div className="product-container" data-tid="container">
           <div className="title">{ this.props.title }</div>
-          {/* <div className="category">{ this.props.category }</div> */}
-          <img src={ this.props.imageUrl } className="img" alt={ this.props.title }/>
+          <div className="img">
+            <img src={ this.props.imageUrl } alt={ this.props.title }/>
+          </div>
           <div className="bottom">
-            <div className="price">{ this.props.price }</div>
-            <button className="add-to-cart">Add to Cart</button>
+            {/* <div className="price">{ this.props.price }</div> */}
+            <Dollar value={ this.props.price }/>
+            <button className="add-to-cart-button">Add to Cart</button>
           </div>
         </div>
       </div>
