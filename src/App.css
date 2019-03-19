@@ -6,7 +6,10 @@
 }
 
 .products {
-  width: 400px;
-  height: 350px;
+  width: 1200px;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  background: gray;
+  padding-top: 15px;
 }

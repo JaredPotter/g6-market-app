@@ -23,7 +23,7 @@ class App extends Component {
     this.setState({
       currentCategoryValue: category,
     });
-  }
+  };
 
   render() {
     let filteredProductList = [];

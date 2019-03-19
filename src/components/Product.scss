@@ -4,10 +4,12 @@
     display: flex;
     flex-direction: column;
     border: 3px solid black;
+    width: 210px;
+    margin-bottom: 15px;
 
     .title {
         padding: 5px;
-        font-size: 30px;
+        font-size: 20px;
     }
 
     .price {
@@ -17,11 +19,12 @@
     .img {
         display: flex;
         justify-content: center;
-        // width: 65%;
 
         img {
             border: 1px solid black;
             object-fit: cover;
+            width: 175px;
+            height: 175px;
         }
     }
 
@@ -30,7 +33,14 @@
         justify-content: space-between;
         
         .add-to-cart-button {
-            // width: 100%;
+            background: #EECF83;
+            width: 160px;
+            height: 35px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 5px;
+            border: 1px solid black;
+            cursor: pointer;
         }
     }
 }
