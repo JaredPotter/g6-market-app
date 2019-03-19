@@ -53,11 +53,20 @@ class App extends Component {
     return (
       <div className="App">
         <div className="filters">
-          <Select 
+          <div>Sort By: 
+            <select>
+              <option value="name">Name</option>
+              <option value="price">Price</option>
+            </select>
+          </div>
+          <div>
+            Category:
+            <Select 
             currentValue={ this.state.currentCategoryValue }
             options={ this.state.categories }
             onSelectChange={ this.updateCategoryFilter }
-          />
+          />            
+          </div>
           <div className="search">
             <Search 
               inputSet={ this.state.products }

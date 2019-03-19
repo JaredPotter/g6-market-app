@@ -39,7 +39,7 @@ export default class Select extends React.Component<SelectProps, SelectState> {
 
     return (
       <div>
-        <div>Current Value: { this.props.currentValue }</div>
+        {/* <div>Current Value: { this.props.currentValue }</div> */}
         <select value={this.props.currentValue} onChange={this.handleChange}>
           { options }
         </select>

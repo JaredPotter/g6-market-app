@@ -44,7 +44,11 @@ export default class Search extends React.Component<SearchProps, SearchState> {
                 let optionValue = option[thisRef.props.searchFieldName];
 
                 if(
-                    (new RegExp("^" + searchString.toLowerCase())).test(optionValue.toLowerCase()) // Regex search on whole list of partial match.
+                    (
+                        (new RegExp('^' + searchString.toLowerCase())).test(optionValue.toLowerCase()) // Regex search on whole list of partial match.
+                        ||
+                        (new RegExp('^.*' + searchString.toLowerCase() + '.*$')).test(optionValue.toLowerCase())
+                    )
                     &&
                     !this.state.currentResultSet.some(item => item === option) // Excludes words already on the list.
                     //^this line is still likely broken.
