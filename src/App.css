@@ -1,8 +1,12 @@
 .App {
   display: flex;
+  width: 1200px;
+}
+
+.App .left {
+  display: flex;
   justify-content: center;
   flex-direction: column;
-  width: 1200px;
 }
 
 .products {

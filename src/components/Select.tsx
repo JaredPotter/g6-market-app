@@ -23,10 +23,6 @@ export default class Select extends React.Component<SelectProps, SelectState> {
   handleChange = (e : any) => {
     const value = e.target.value;
 
-    // this.setState({
-    //   currentValue: value,
-    // });
-
     this.state.onSelectChange(value);
   }
 

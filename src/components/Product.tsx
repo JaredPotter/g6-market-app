@@ -6,10 +6,20 @@ export interface ProductProps {
     title: string;
     imageUrl: string;
     price: number;
-    category: string
+    category: string;
+    onAddToCart: Function;
 };
 
 export default class Product extends React.Component<ProductProps, {}> {
+  handleClick = () => {
+    const item = {
+      title: this.props.title,
+      price: this.props.price,
+    };  
+
+    this.props.onAddToCart(item);
+  };
+
   render() {
     return (
       <div>
@@ -21,7 +31,7 @@ export default class Product extends React.Component<ProductProps, {}> {
           <div className="bottom">
             {/* <div className="price">{ this.props.price }</div> */}
             <Dollar value={ this.props.price }/>
-            <button className="add-to-cart-button">Add to Cart</button>
+            <button onClick={ this.handleClick } className="add-to-cart-button">Add to Cart</button>
           </div>
         </div>
       </div>
