@@ -59,7 +59,6 @@ class App extends Component {
   };
 
   onRemoveFromCart(item) {
-    debugger;
     const cartItems = this.state.cartItems.slice(0);
     const newCartItems = cartItems.filter(i => {
       return i.title !== item.title

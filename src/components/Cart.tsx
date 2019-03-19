@@ -8,11 +8,7 @@ export interface CartProps {
     onRemoveFromCart: Function;
 }
 
-export interface CartState {
-    // subtotal: number;
-}
-
-export default class Cart extends React.Component<CartProps, CartState> {   
+export default class Cart extends React.Component<CartProps, {}> {   
     constructor(props : CartProps) {
         super(props);
 
@@ -95,35 +91,10 @@ export default class Cart extends React.Component<CartProps, CartState> {
     };
 
     handleRemoveFromCart(item : any) {
-        debugger;
         this.props.onRemoveFromCart(item);
     }
 
-    // handleRemoveFromCart = (item : any) => {
-    //     debugger;
-    //     this.props.onRemoveFromCart(item);
-    // }
-
     render() {
-        // const lineItems = this.props.items.map((item) => {
-        //     return (
-        //         <tr key={ item.title }>
-        //             <td>
-        //                 { item.title }
-        //             </td>
-        //             <td className="quantity">
-        //                 { item.quantity }
-        //             </td>
-        //             <td>
-        //                 <Dollar value={ item.price }/>
-        //             </td>
-        //             <td onClick={ this.handleRemoveFromCart } className="remove">
-        //                 X
-        //             </td>
-        //         </tr>
-        //     );
-        // });
-
         return (
             <div className="cart-container">
                 <h3>Cart</h3>
