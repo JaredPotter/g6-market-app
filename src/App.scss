@@ -1,0 +1,38 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  width: 1200px;
+}
+
+.app .top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app .top-bar a {
+  width: 100px;
+}
+
+.app .top-bar a img{
+  width: 100%;
+}
+
+.app .top-bar .top-subtotal-cart-count {
+
+}
+
+.app .left {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.products {
+  width: 1200px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  background: gray;
+  padding-top: 15px;
+}

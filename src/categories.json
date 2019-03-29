@@ -1,0 +1,45 @@
+[{
+        "value": "all",
+        "label": "All"
+    },
+    {
+        "value": "produce",
+        "label": "Produce"
+    },
+    {
+        "value": "beverages",
+        "label": "Beverages"
+    },
+    {
+        "value": "frozenFoods",
+        "label": "Frozen Foods"
+    },
+    {
+        "value": "bakery",
+        "label": "Bakery"
+    },
+    {
+        "value": "grains",
+        "label": "Grains"
+    },
+    {
+        "value": "condiments",
+        "label": "Condiments"
+    },
+    {
+        "value": "baking",
+        "label": "Baking"
+    },
+    {
+        "value": "canned",
+        "label": "Canned"
+    },
+    {
+        "value": "dairy",
+        "label": "Dairy"
+    },
+    {
+        "value": "candyAndSnacks",
+        "label": "Candy and Snacks"
+    }
+]
