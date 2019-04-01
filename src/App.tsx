@@ -7,10 +7,18 @@ import Cart from './components/Cart';
 import categories from './categories.json';
 import products from './products.json';
 
+// interface Product {
+//   title: string;
+//   price: number;
+//   quantity: number;
+// }
+
 export interface AppState {
-  currentCategoryValue: any;
+  currentCategoryValue: string;
+  currentSortByValue: string;
   categories: Array<any>;
   products: Array<any>;
+  filteredProductList: Array<any>;
   cartItems: Array<any>;
 };
 
@@ -19,38 +27,56 @@ export default class App extends React.Component<{}, AppState> {
     super(props);
 
     this.updateCategoryFilter = this.updateCategoryFilter.bind(this);
-    // this.onRemoveFromCart = this.onRemoveFromCart.bind(this);
+    this.handleChangeSortBy = this.handleChangeSortBy.bind(this);
     this.state = {
       currentCategoryValue: 'all',
+      currentSortByValue: 'name',
       categories: categories,
       products: products,
+      filteredProductList: [],
       cartItems: [
-        {
-          title: 'Bananas',
-          price: 0.99,
-          quantity: 3
-        }
+        // {
+        //   title: 'Bananas',
+        //   price: 0.99,
+        //   quantity: 3
+        // }
       ]
     };
   }
 
+  componentDidMount() {
+    // const filteredProductList = this.state.products
+    // const payload = {
+    //   category: this.state.currentCategoryValue,
+    //   sortBy: this.state.currentSortByValue,
+    // };  
+
+    this.updateFilteredProducts();
+  }
+
   updateCategoryFilter(category : string) {
-    this.setState({
-      currentCategoryValue: category,
-    });
+    this.updateFilteredProducts(category);
   };
 
-  onAddToCart(item : any) {
+  handleChangeSortBy(sortBy : string) {
+    this.updateFilteredProducts(undefined, sortBy);
+  }
+
+  onCartUpdate(item : any) {
     const existing = this.state.cartItems.find((i) => { 
       return i.title === item.title
     });
+
+    let newCartItems = [];
     
     if(existing) {
-      // Increment quantity by 1.
-      existing.quantity++;
-      this.setState({
-        cartItems: this.state.cartItems.slice(0)
-      });
+      // if(item.quantity === 0 ) {
+
+      // }
+
+      existing.quantity = item.quantity;
+      
+      newCartItems = this.state.cartItems.slice(0)
     }
     else {
       // Add new item to cart.
@@ -58,26 +84,30 @@ export default class App extends React.Component<{}, AppState> {
       item.quantity = 1;
 
       itemsClone.push(item);
-      this.setState({
-        cartItems: itemsClone
-      });
+      newCartItems = itemsClone;
     }
+
+    this.updateFilteredProducts(undefined, undefined, newCartItems);    
   };
 
   onRemoveFromCart(item : any) {
     const cartItems = this.state.cartItems.slice(0);
-    const newCartItems = cartItems.filter(i => {
-      return i.title !== item.title
-    });
+    const existing = cartItems.slice(0).find(e => e.title === item.title);
 
-    this.setState({
-      cartItems: newCartItems
-    });
+    if(existing) {
+      existing.quantity = 0;
+    }
+    
+    this.updateFilteredProducts(undefined, undefined, cartItems); 
   }
 
-  render() {
-    let filteredProductList = [];
-    const category = this.state.currentCategoryValue;
+  updateFilteredProducts(category? : string, sortBy? : string, cartItems? : any[]) {
+    let filteredProductList = [] as any[];
+
+    // Apply Category.
+    category = category ? category : this.state.currentCategoryValue;
+    sortBy = sortBy ? sortBy : this.state.currentSortByValue;
+    cartItems = cartItems ? cartItems : this.state.cartItems;
 
     if(category !== 'all') {
       filteredProductList = this.state.products.filter((product) => {
@@ -88,6 +118,45 @@ export default class App extends React.Component<{}, AppState> {
       filteredProductList = this.state.products.slice(0);
     }
 
+    // Apply Sort by.
+    if(sortBy === 'name') {
+      filteredProductList = filteredProductList.sort((a, b) => {
+        if (a.title < b.title)
+          return -1;
+        if (a.title > b.title)
+          return 1;
+        return 0;
+      });
+    }
+    else if(sortBy === 'price') {
+      filteredProductList = filteredProductList.sort((a, b) => {
+        return a.price - b.price;
+      });
+    }
+
+    // Match cartItems and filteredProduct list.
+    cartItems.forEach((item) => {
+      const element = filteredProductList.find(e => e.title === item.title);
+
+      if(element) {
+        element.quantity = item.quantity;
+      }
+    });
+    
+    // Remove empty elements from cart.
+    const newCartItems = cartItems.filter(item => item.quantity > 0);
+
+    this.setState({
+      filteredProductList: filteredProductList,
+      cartItems: newCartItems,
+      currentCategoryValue: category,
+      currentSortByValue: sortBy,
+    })
+  }
+
+  render() {  
+    const filteredProductList = this.state.filteredProductList;
+
     const productList = filteredProductList.map((item) => {
       return (
         <Product
@@ -96,7 +165,8 @@ export default class App extends React.Component<{}, AppState> {
           imageUrl={ item.imageUrl }
           price={ item.price }
           category={ item.category }
-          onAddToCart={ (item : any) => this.onAddToCart(item)}
+          onCartUpdate={ (item : any) => this.onCartUpdate(item)}
+          quantity={ item.quantity }
         />
       )
     });
@@ -120,11 +190,12 @@ export default class App extends React.Component<{}, AppState> {
         </div>
         <div className="left">
           <div className="filters">
-            <div>Sort By: 
-              <select>
-                <option value="name">Name</option>
-                <option value="price">Price</option>
-              </select>
+            <div>Sort By:
+              <Select 
+                currentValue={ this.state.currentSortByValue }
+                options={ [{value: 'name', label: 'Name' }, {value: 'price', label: 'Price'}] }
+                onSelectChange={ this.handleChangeSortBy }
+              />              
             </div>
             <div>
               Category:
@@ -132,7 +203,7 @@ export default class App extends React.Component<{}, AppState> {
                 currentValue={ this.state.currentCategoryValue }
                 options={ this.state.categories }
                 onSelectChange={ this.updateCategoryFilter }
-              />            
+              />
             </div>
 
           </div>
