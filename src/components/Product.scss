@@ -19,12 +19,14 @@
     .img {
         display: flex;
         justify-content: center;
+        background: white;
 
         img {
             border: 1px solid black;
             object-fit: cover;
             width: 175px;
             height: 175px;
+            padding: 15px;
         }
     }
 
@@ -33,7 +35,7 @@
         justify-content: space-between;
         
         .add-to-cart-button {
-            background: #EECF83;
+            background: #EEC268;
             width: 160px;
             height: 35px;
             font-size: 14px;

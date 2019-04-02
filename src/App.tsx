@@ -3,6 +3,7 @@ import './App.scss';
 import Product from './components/Product';
 import Select from './components/Select';
 import Search from './components/Search';
+import Dollar from './components/Dollar';
 import Cart from './components/Cart';
 import categories from './categories.json';
 import products from './products.json';
@@ -16,6 +17,7 @@ import products from './products.json';
 export interface AppState {
   currentCategoryValue: string;
   currentSortByValue: string;
+  currentSearchQueryValue: string;
   categories: Array<any>;
   products: Array<any>;
   filteredProductList: Array<any>;
@@ -28,9 +30,12 @@ export default class App extends React.Component<{}, AppState> {
 
     this.updateCategoryFilter = this.updateCategoryFilter.bind(this);
     this.handleChangeSortBy = this.handleChangeSortBy.bind(this);
+    this.getSubtotal = this.getSubtotal.bind(this);
+    this.getCartCount = this.getCartCount.bind(this);
     this.state = {
       currentCategoryValue: 'all',
       currentSortByValue: 'name',
+      currentSearchQueryValue: '',
       categories: categories,
       products: products,
       filteredProductList: [],
@@ -70,12 +75,7 @@ export default class App extends React.Component<{}, AppState> {
     let newCartItems = [];
     
     if(existing) {
-      // if(item.quantity === 0 ) {
-
-      // }
-
       existing.quantity = item.quantity;
-      
       newCartItems = this.state.cartItems.slice(0)
     }
     else {
@@ -87,7 +87,7 @@ export default class App extends React.Component<{}, AppState> {
       newCartItems = itemsClone;
     }
 
-    this.updateFilteredProducts(undefined, undefined, newCartItems);    
+    this.updateFilteredProducts(undefined, undefined, undefined, newCartItems);    
   };
 
   onRemoveFromCart(item : any) {
@@ -98,15 +98,16 @@ export default class App extends React.Component<{}, AppState> {
       existing.quantity = 0;
     }
     
-    this.updateFilteredProducts(undefined, undefined, cartItems); 
+    this.updateFilteredProducts(undefined, undefined, undefined, cartItems); 
   }
 
-  updateFilteredProducts(category? : string, sortBy? : string, cartItems? : any[]) {
+  updateFilteredProducts(category? : string, sortBy? : string, query? : string, cartItems? : any[]) {
     let filteredProductList = [] as any[];
 
     // Apply Category.
     category = category ? category : this.state.currentCategoryValue;
     sortBy = sortBy ? sortBy : this.state.currentSortByValue;
+    query = query ? query : this.state.currentSearchQueryValue;
     cartItems = cartItems ? cartItems : this.state.cartItems;
 
     if(category !== 'all') {
@@ -134,6 +135,24 @@ export default class App extends React.Component<{}, AppState> {
       });
     }
 
+    // Apply search query.
+    if(query) {
+      filteredProductList = filteredProductList.filter((option) => {
+        const optionValue = option.title;
+        
+        if(
+            (
+                (new RegExp('^' + query!.toLowerCase())).test(optionValue.toLowerCase()) // Regex search on whole list of partial match.
+                ||
+                (new RegExp('^.*' + query!.toLowerCase() + '.*$')).test(optionValue.toLowerCase())
+            )
+        )
+        {
+            return true
+        }
+      });
+    }
+
     // Match cartItems and filteredProduct list.
     cartItems.forEach((item) => {
       const element = filteredProductList.find(e => e.title === item.title);
@@ -151,7 +170,34 @@ export default class App extends React.Component<{}, AppState> {
       cartItems: newCartItems,
       currentCategoryValue: category,
       currentSortByValue: sortBy,
+      currentSearchQueryValue: query,
     })
+  }
+
+  getSubtotal() {
+    const cartItems = this.state.cartItems;
+    let subtotal = 0;
+    
+    if(cartItems.length > 0) {
+      subtotal = cartItems.reduce((total, item) => total += item.price * item.quantity);
+    }
+
+    return subtotal;
+  }
+
+  getCartCount() {
+    const cartItems = this.state.cartItems;
+    let cartCount = 0;
+    
+    if(cartItems.length > 0) {
+      cartCount = cartItems.reduce((total, item) => total += item.quantity);
+    }
+
+    return cartCount;
+  }
+
+  onQueryChange(query : string) {
+    this.updateFilteredProducts(undefined, undefined, query)
   }
 
   render() {  
@@ -175,38 +221,39 @@ export default class App extends React.Component<{}, AppState> {
       <div className="app">
         <div className="top-bar">
           <a href="/">
-            <img src="/logo_title.png" alt="G6 Market"/>
+            <img src="logo_title.png" alt="G6 Market"/>
           </a>
           <div className="search">
             <Search 
               inputSet={ this.state.products }
               searchFieldName={ 'title' }
               minimumSearchLength={ 2 }
+              onQueryChange={ (query : string) => this.onQueryChange(query) }
             />
           </div>
           <div className="top-subtotal-cart-count">
-            asd
+            <div className="div">Subtotal: <Dollar value={ this.getSubtotal() }/></div>
+            <div className="div">Cart: { this.getCartCount() }</div>
           </div>
         </div>
-        <div className="left">
-          <div className="filters">
-            <div>Sort By:
+        <div className="filter-bar">
+          <div>Sort By:
               <Select 
                 currentValue={ this.state.currentSortByValue }
                 options={ [{value: 'name', label: 'Name' }, {value: 'price', label: 'Price'}] }
                 onSelectChange={ this.handleChangeSortBy }
               />              
-            </div>
-            <div>
-              Category:
-              <Select 
-                currentValue={ this.state.currentCategoryValue }
-                options={ this.state.categories }
-                onSelectChange={ this.updateCategoryFilter }
-              />
-            </div>
-
           </div>
+          <div>
+            Category:
+            <Select 
+              currentValue={ this.state.currentCategoryValue }
+              options={ this.state.categories }
+              onSelectChange={ this.updateCategoryFilter }
+            />
+          </div>
+        </div>
+        <div className="left">
           <div className="products">
             { productList }
           </div>
