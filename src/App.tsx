@@ -162,7 +162,7 @@ export default class App extends React.Component<{}, AppState> {
         <Product
           key={ item.title }
           title={ item.title }
-          imageUrl={ item.imageUrl }
+          imageUrl={ 'thumbnails/' + item.url }
           price={ item.price }
           category={ item.category }
           onCartUpdate={ (item : any) => this.onCartUpdate(item)}
