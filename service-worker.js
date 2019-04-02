@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/JaredPotter/g6-market-app/precache-manifest.cedb220e5f0ab319109ac6bec21f4f6a.js"
+  "/g6-market-app/precache-manifest.f8863e4834a1132ad800bff8ab754675.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/JaredPotter/g6-market-app/index.html", {
+workbox.routing.registerNavigationRoute("/g6-market-app/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });

@@ -1,13 +1,13 @@
 {
-  "main.css": "/JaredPotter/g6-market-app/static/css/main.283e3da8.chunk.css",
-  "main.js": "/JaredPotter/g6-market-app/static/js/main.904f7205.chunk.js",
-  "main.js.map": "/JaredPotter/g6-market-app/static/js/main.904f7205.chunk.js.map",
-  "runtime~main.js": "/JaredPotter/g6-market-app/static/js/runtime~main.43e82ac3.js",
-  "runtime~main.js.map": "/JaredPotter/g6-market-app/static/js/runtime~main.43e82ac3.js.map",
-  "static/js/2.a6c925a8.chunk.js": "/JaredPotter/g6-market-app/static/js/2.a6c925a8.chunk.js",
-  "static/js/2.a6c925a8.chunk.js.map": "/JaredPotter/g6-market-app/static/js/2.a6c925a8.chunk.js.map",
-  "index.html": "/JaredPotter/g6-market-app/index.html",
-  "precache-manifest.cedb220e5f0ab319109ac6bec21f4f6a.js": "/JaredPotter/g6-market-app/precache-manifest.cedb220e5f0ab319109ac6bec21f4f6a.js",
-  "service-worker.js": "/JaredPotter/g6-market-app/service-worker.js",
-  "static/css/main.283e3da8.chunk.css.map": "/JaredPotter/g6-market-app/static/css/main.283e3da8.chunk.css.map"
+  "main.css": "/g6-market-app/static/css/main.283e3da8.chunk.css",
+  "main.js": "/g6-market-app/static/js/main.904f7205.chunk.js",
+  "main.js.map": "/g6-market-app/static/js/main.904f7205.chunk.js.map",
+  "runtime~main.js": "/g6-market-app/static/js/runtime~main.d06af64a.js",
+  "runtime~main.js.map": "/g6-market-app/static/js/runtime~main.d06af64a.js.map",
+  "static/js/2.a6c925a8.chunk.js": "/g6-market-app/static/js/2.a6c925a8.chunk.js",
+  "static/js/2.a6c925a8.chunk.js.map": "/g6-market-app/static/js/2.a6c925a8.chunk.js.map",
+  "index.html": "/g6-market-app/index.html",
+  "precache-manifest.f8863e4834a1132ad800bff8ab754675.js": "/g6-market-app/precache-manifest.f8863e4834a1132ad800bff8ab754675.js",
+  "service-worker.js": "/g6-market-app/service-worker.js",
+  "static/css/main.283e3da8.chunk.css.map": "/g6-market-app/static/css/main.283e3da8.chunk.css.map"
 }
