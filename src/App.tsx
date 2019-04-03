@@ -277,7 +277,12 @@ export default class App extends React.Component<{}, AppState> {
             </div>
           </div>
           <div className={'right ' + (this.state.cartItems.length === 0 ? 'hidden-right' : '')}>
-            <Cart taxRate={ 0.05 } items={ this.state.cartItems } onRemoveFromCart={ (item : any) => this.onRemoveFromCart(item) }/>
+            <Cart 
+              taxRate={ 0.05 } 
+              items={ this.state.cartItems } 
+              onRemoveFromCart={ (item : any) => this.onRemoveFromCart(item) }
+              onCartUpdate={ (item : any) => this.onCartUpdate(item)}
+            />
           </div>        
         </div>
       </div>
