@@ -4,19 +4,19 @@ self.__precacheManifest = [
     "url": "/g6-market-app/static/js/runtime~main.d06af64a.js"
   },
   {
-    "revision": "f8de949abaa9633e8d39",
-    "url": "/g6-market-app/static/js/main.390477de.chunk.js"
+    "revision": "9a685cb008d88c1b6bab",
+    "url": "/g6-market-app/static/js/main.eb6c3104.chunk.js"
   },
   {
     "revision": "54df10a823aebb98176e",
     "url": "/g6-market-app/static/js/2.a6c925a8.chunk.js"
   },
   {
-    "revision": "f8de949abaa9633e8d39",
-    "url": "/g6-market-app/static/css/main.283e3da8.chunk.css"
+    "revision": "9a685cb008d88c1b6bab",
+    "url": "/g6-market-app/static/css/main.eab95c71.chunk.css"
   },
   {
-    "revision": "fcd8b495acd55523afe208cf0915044a",
+    "revision": "ac8219d0daae854832dd615624b892e0",
     "url": "/g6-market-app/index.html"
   }
 ];

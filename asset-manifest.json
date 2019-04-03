@@ -1,13 +1,13 @@
 {
-  "main.css": "/g6-market-app/static/css/main.283e3da8.chunk.css",
-  "main.js": "/g6-market-app/static/js/main.390477de.chunk.js",
-  "main.js.map": "/g6-market-app/static/js/main.390477de.chunk.js.map",
+  "main.css": "/g6-market-app/static/css/main.eab95c71.chunk.css",
+  "main.js": "/g6-market-app/static/js/main.eb6c3104.chunk.js",
+  "main.js.map": "/g6-market-app/static/js/main.eb6c3104.chunk.js.map",
   "runtime~main.js": "/g6-market-app/static/js/runtime~main.d06af64a.js",
   "runtime~main.js.map": "/g6-market-app/static/js/runtime~main.d06af64a.js.map",
   "static/js/2.a6c925a8.chunk.js": "/g6-market-app/static/js/2.a6c925a8.chunk.js",
   "static/js/2.a6c925a8.chunk.js.map": "/g6-market-app/static/js/2.a6c925a8.chunk.js.map",
   "index.html": "/g6-market-app/index.html",
-  "precache-manifest.293bbbef2d9e5cd4564f54c514a858c7.js": "/g6-market-app/precache-manifest.293bbbef2d9e5cd4564f54c514a858c7.js",
+  "precache-manifest.d308dd9edad34b87d4b9e1c259b8906e.js": "/g6-market-app/precache-manifest.d308dd9edad34b87d4b9e1c259b8906e.js",
   "service-worker.js": "/g6-market-app/service-worker.js",
-  "static/css/main.283e3da8.chunk.css.map": "/g6-market-app/static/css/main.283e3da8.chunk.css.map"
+  "static/css/main.eab95c71.chunk.css.map": "/g6-market-app/static/css/main.eab95c71.chunk.css.map"
 }
