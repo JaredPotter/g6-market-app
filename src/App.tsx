@@ -50,12 +50,6 @@ export default class App extends React.Component<{}, AppState> {
   }
 
   componentDidMount() {
-    // const filteredProductList = this.state.products
-    // const payload = {
-    //   category: this.state.currentCategoryValue,
-    //   sortBy: this.state.currentSortByValue,
-    // };  
-
     this.updateFilteredProducts();
   }
 
@@ -84,7 +78,7 @@ export default class App extends React.Component<{}, AppState> {
       item.quantity = 1;
 
       itemsClone.push(item);
-      newCartItems = itemsClone;
+      newCartItems = itemsClone.slice(0);
     }
 
     this.updateFilteredProducts(undefined, undefined, undefined, newCartItems);    
@@ -107,7 +101,14 @@ export default class App extends React.Component<{}, AppState> {
     // Apply Category.
     category = category ? category : this.state.currentCategoryValue;
     sortBy = sortBy ? sortBy : this.state.currentSortByValue;
-    query = query ? query : this.state.currentSearchQueryValue;
+    
+    if(query === undefined) {
+      query = this.state.currentSearchQueryValue;
+    }
+    else {
+      query = query;
+    }
+
     cartItems = cartItems ? cartItems : this.state.cartItems;
 
     if(category !== 'all') {
@@ -136,21 +137,23 @@ export default class App extends React.Component<{}, AppState> {
     }
 
     // Apply search query.
-    if(query) {
+    // new RegExp('^.\w$').test(query)
+    if(query && query.length > 0) {
+      query = query!.toLowerCase();
       filteredProductList = filteredProductList.filter((option) => {
-        const optionValue = option.title;
+        const optionValue = option.title.toLowerCase();
         
         if(
             (
-                (new RegExp('^' + query!.toLowerCase())).test(optionValue.toLowerCase()) // Regex search on whole list of partial match.
+                (new RegExp('^' + query)).test(optionValue) // Regex search on whole list of partial match.
                 ||
-                (new RegExp('^.*' + query!.toLowerCase() + '.*$')).test(optionValue.toLowerCase())
+                (new RegExp('^.*' + query + '.*$')).test(optionValue)
             )
         )
         {
             return true
         }
-      });
+      }, this);
     }
 
     // Match cartItems and filteredProduct list.
@@ -179,7 +182,7 @@ export default class App extends React.Component<{}, AppState> {
     let subtotal = 0;
     
     if(cartItems.length > 0) {
-      subtotal = cartItems.reduce((total, item) => total += item.price * item.quantity);
+      subtotal = cartItems.reduce((total, item) => total += item.price * item.quantity), 0;
     }
 
     return subtotal;
@@ -190,7 +193,7 @@ export default class App extends React.Component<{}, AppState> {
     let cartCount = 0;
     
     if(cartItems.length > 0) {
-      cartCount = cartItems.reduce((total, item) => total += item.quantity);
+      cartCount = cartItems.reduce((total, item) => total += item.quantity, 0);
     }
 
     return cartCount;
@@ -200,22 +203,35 @@ export default class App extends React.Component<{}, AppState> {
     this.updateFilteredProducts(undefined, undefined, query)
   }
 
+  // renderCart() {
+  //   return (
+
+  //   );
+  // }
+
   render() {  
     const filteredProductList = this.state.filteredProductList;
 
-    const productList = filteredProductList.map((item) => {
-      return (
-        <Product
-          key={ item.title }
-          title={ item.title }
-          imageUrl={ 'thumbnails/' + item.url }
-          price={ item.price }
-          category={ item.category }
-          onCartUpdate={ (item : any) => this.onCartUpdate(item)}
-          quantity={ item.quantity }
-        />
-      )
-    });
+    let productList = undefined;
+    
+    if(filteredProductList.length > 0) {
+      productList = filteredProductList.map((item) => {
+        return (
+          <Product
+            key={ item.title }
+            title={ item.title }
+            imageUrl={ 'thumbnails/' + item.url }
+            price={ item.price }
+            category={ item.category }
+            onCartUpdate={ (item : any) => this.onCartUpdate(item)}
+            quantity={ item.quantity }
+          />
+        )
+      });
+    }
+    else {
+      productList = React.createElement('div', {}, 'No Results');
+    }
 
     return (
       <div className="app">
@@ -232,34 +248,37 @@ export default class App extends React.Component<{}, AppState> {
             />
           </div>
           <div className="top-subtotal-cart-count">
-            <div className="div">Subtotal: <Dollar value={ this.getSubtotal() }/></div>
-            <div className="div">Cart: { this.getCartCount() }</div>
+            <div><strong>Subtotal: </strong><Dollar value={ this.getSubtotal() }/></div>
+            <div><strong>Cart: </strong> { this.getCartCount() }</div>
           </div>
         </div>
         <div className="filter-bar">
-          <div>Sort By:
-              <Select 
+          <div>
+              <strong>Sort By:</strong>
+              <Select
                 currentValue={ this.state.currentSortByValue }
                 options={ [{value: 'name', label: 'Name' }, {value: 'price', label: 'Price'}] }
                 onSelectChange={ this.handleChangeSortBy }
-              />              
+              />
           </div>
           <div>
-            Category:
-            <Select 
+            <strong>Category:</strong>
+            <Select
               currentValue={ this.state.currentCategoryValue }
               options={ this.state.categories }
               onSelectChange={ this.updateCategoryFilter }
             />
           </div>
         </div>
-        <div className="left">
-          <div className="products">
-            { productList }
+        <div className="body">
+          <div className={'left ' + (this.state.cartItems.length === 0 ? 'full-left' : '')}>
+            <div className="products">
+              { productList }
+            </div>
           </div>
-        </div>
-        <div className="right">
-          <Cart taxRate={ 0.05 } items={ this.state.cartItems } onRemoveFromCart={ (item : any) => this.onRemoveFromCart(item) }/>
+          <div className={'right ' + (this.state.cartItems.length === 0 ? 'hidden-right' : '')}>
+            <Cart taxRate={ 0.05 } items={ this.state.cartItems } onRemoveFromCart={ (item : any) => this.onRemoveFromCart(item) }/>
+          </div>        
         </div>
       </div>
     );

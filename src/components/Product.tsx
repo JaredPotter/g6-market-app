@@ -17,7 +17,7 @@ export default class Product extends React.Component<ProductProps, {}> {
       title: this.props.title,
       price: this.props.price,
       quantity: quantity
-    };  
+    };
 
     this.props.onCartUpdate(item);
   };
@@ -41,11 +41,10 @@ export default class Product extends React.Component<ProductProps, {}> {
   addToCartOrQuantity(quantity : number) {
     if(quantity > 0) {
       return (
-        <div>
-          <button onClick={ () => this.handleClickChangeQuantity(this.props.quantity - 1) }>-</button>
-          {/* <div>{ quantity }</div> */}
-          <input type="text" value={ quantity } onChange={ this.handleChange }/>
-          <button onClick={ () => this.handleClickChangeQuantity(this.props.quantity + 1) }>+</button>
+        <div className="quantity">
+          <button className="quantity-button" onClick={ () => this.handleClickChangeQuantity(this.props.quantity - 1) }>-</button>
+          <input className="quantity-amount" type="text" value={ quantity } onChange={ this.handleChange }/>
+          <button className="quantity-button" onClick={ () => this.handleClickChangeQuantity(this.props.quantity + 1) }>+</button>
         </div>
       );
     }
@@ -63,9 +62,11 @@ export default class Product extends React.Component<ProductProps, {}> {
           <div className="img">
             <img src={ this.props.imageUrl } alt={ this.props.title }/>
           </div>
+          <div className="price">
+            <Dollar value={ this.props.price }/>
+          </div>
           <div className="title">{ this.props.title }</div>
           <div className="bottom">
-            <Dollar value={ this.props.price }/>
             { this.addToCartOrQuantity(this.props.quantity) }
           </div>
         </div>

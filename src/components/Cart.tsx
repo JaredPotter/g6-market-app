@@ -97,6 +97,7 @@ export default class Cart extends React.Component<CartProps, {}> {
     render() {
         return (
             <div className="cart-container">
+                <img src="shopping-cart.svg" alt="Shopping Cart"/>
                 <h3>Cart</h3>
                 <table>
                     <thead>

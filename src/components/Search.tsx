@@ -23,6 +23,7 @@ export default class Search extends React.Component<SearchProps, SearchState> {
         this.formatSuggestionList = this.formatSuggestionList.bind(this);
         this.handleMouseOver = this.handleMouseOver.bind(this);
         this.handleKeyDown = this.handleKeyDown.bind(this);
+        this.clear = this.clear.bind(this);
 
         this.state = {
             suggestionList: [],
@@ -33,42 +34,28 @@ export default class Search extends React.Component<SearchProps, SearchState> {
     }
     
     handleChange = (e : any) => {
-        const searchString = e.target.value;
-    
-        // Valid if alpha or approved special character.            
-        // if(!(/\w+/.test(searchString))) {
-        //     this.setState({
-        //         suggestionList: []
-        //     });
-
-        //     return;
-        // }
-
-        let suggestionList = null;
+        const searchString = e.target.value.toLowerCase();
+        let suggestionList = [];
 
         if(searchString.length >= this.props.minimumSearchLength) {
-            let thisRef = this;
             suggestionList = this.props.inputSet.filter((option) => {
-                let optionValue = option[thisRef.props.searchFieldName];
+                let optionValue = option[this.props.searchFieldName].toLowerCase();
 
                 if(
                     (
-                        (new RegExp('^' + searchString.toLowerCase())).test(optionValue.toLowerCase()) // Regex search on whole list of partial match.
+                        (new RegExp('^' + searchString)).test(optionValue) // Regex search on whole list of partial match.
                         ||
-                        (new RegExp('^.*' + searchString.toLowerCase() + '.*$')).test(optionValue.toLowerCase())
+                        (new RegExp('^.*' + searchString + '.*$')).test(optionValue)
                     )
-                    &&
-                    !this.state.currentResultSet.some(item => item === option) // Excludes words already on the list.
+                    // &&
+                    // !this.state.currentResultSet.some(item => item === option) // Excludes words already on the list.
                     //^this line is still likely broken.
                 )
                 {
                     return true
                 }
             });
-        }
-        else {
-            suggestionList = [];
-        }        
+        }      
 
         this.setState({
             suggestionList: suggestionList,
@@ -113,6 +100,15 @@ export default class Search extends React.Component<SearchProps, SearchState> {
         }
     };
 
+    clear() {
+        this.props.onQueryChange('');
+        this.setState({
+            currentQueryValue: '',
+            suggestionList: [],
+            selected: -1
+        });
+    }
+
     formatSuggestionList(suggestionList : Array<any>) {
         const list = suggestionList.map((item, index) => {
             return (
@@ -126,13 +122,13 @@ export default class Search extends React.Component<SearchProps, SearchState> {
                     { item[this.props.searchFieldName] }
                 </div>
             )
-          });        
+        });
 
         return list;
     }
 
     render() {
-        if(this.state.suggestionList.length > 1) {
+        if(this.state.suggestionList.length > 0) {
             return (
                 <div className="search-container">
                     <input 
@@ -142,6 +138,7 @@ export default class Search extends React.Component<SearchProps, SearchState> {
                         placeholder="Search..."
                         onKeyDown={ this.handleKeyDown }
                     />
+                    <img src="cancel.svg" alt="Clear Search"/>
                     <div className="suggestion-list">
                         { this.formatSuggestionList(this.state.suggestionList) }
                     </div>
@@ -157,7 +154,8 @@ export default class Search extends React.Component<SearchProps, SearchState> {
                         value={ this.state.currentQueryValue } 
                         placeholder="Search..."
                         onKeyDown={ this.handleKeyDown }
-                    />                    
+                    />
+                    <img src="cancel.svg" alt="Clear Search" onClick={ this.clear }/>
                 </div>
             );
         }

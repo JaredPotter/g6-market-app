@@ -1,3 +1,16 @@
+.cart-container {
+    padding: 6px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // justify-content: center;
+
+    img {
+        max-height: 1%;
+    }
+}
+
 table, th, td {
     border: 1px solid black;
 }

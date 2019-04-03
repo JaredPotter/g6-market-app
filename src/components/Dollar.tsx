@@ -3,7 +3,7 @@ export interface DollarProps { value: number; }
 
 const Dollar = (props: DollarProps) => {
     return (
-        <div>${ format(props.value) }</div>
+        <span>${ format(props.value) }</span>
     );
 };
 
