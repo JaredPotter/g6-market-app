@@ -52,7 +52,7 @@ export default class Cart extends React.Component<CartProps, {}> {
                         <input type="number" value={ item.quantity } onChange={ (e) => this.onChangeQuantity(e, item.title, item.price)}/>
                     </td>
                     <td>
-                        <Dollar value={ item.price }/>
+                        <Dollar value={ item.price * item.quantity }/>
                     </td>
                     <td onClick={ () => this.handleRemoveFromCart(item) } className="remove">
                         X
@@ -70,7 +70,7 @@ export default class Cart extends React.Component<CartProps, {}> {
                 <td>
                     Subtotal
                 </td>
-                <td>
+                <td className="value">
                     <Dollar value={ subtotal }/>
                 </td>
             </tr>
@@ -81,7 +81,7 @@ export default class Cart extends React.Component<CartProps, {}> {
         return (
             <tr>
                 <td>Tax Rate</td>
-                <td>
+                <td className="value">
                     { rate * 100 }%
                 </td>
             </tr>
@@ -92,7 +92,7 @@ export default class Cart extends React.Component<CartProps, {}> {
         return (
             <tr>
                 <td>Tax Amount</td>
-                <td>
+                <td className="value">
                     <Dollar value={ rate * subtotal }/>
                 </td>
             </tr>
@@ -103,7 +103,7 @@ export default class Cart extends React.Component<CartProps, {}> {
         return (
             <tr>
                 <td><strong>Total</strong></td>
-                <td>
+                <td className="value">
                     <strong><Dollar value={ (rate * subtotal) + subtotal }/></strong>
                 </td>
             </tr>            
@@ -134,7 +134,7 @@ export default class Cart extends React.Component<CartProps, {}> {
     }
 
     checkout() {
-        alert('Grocery Order Complete! - Total was: ' + this.getTotalAmount() + ' for ' + this.getItemCount() + ' items.');
+        alert('Grocery Order Complete! - Total: $' + this.getTotalAmount().toFixed(2) + ' for ' + this.getItemCount() + ' items.');
 
         this.props.items.forEach((item) => {
             this.handleRemoveFromCart(item);
@@ -144,31 +144,30 @@ export default class Cart extends React.Component<CartProps, {}> {
     render() {
         return (
             <div className="cart-container">
-                <img src="shopping-cart.svg" alt="Shopping Cart"/>
-                <h3>Cart</h3>
-                <table className="items">
-                    <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Remove</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        { this.renderLineItem(this.props.items ) }
-                    </tbody>
-                </table>
-                <h3>Cart Total</h3>
-                <table className="items">
-                    <tbody>
-                        { this.renderSubtotal(this.subtotalAmount(this.props.items)) }
-                        { this.renderTaxRate(this.props.taxRate) }
-                        { this.renderTaxAmount(this.props.taxRate, this.subtotalAmount(this.props.items)) }
-                        { this.renderTotalAmount(this.props.taxRate, this.subtotalAmount(this.props.items)) }
-                    </tbody>
-                </table>
-                <button onClick={ this.checkout } className="checkout">CHECK OUT</button>
+                <div className="top">
+                <h1>Cart</h1>
+                    <div className="cart-icon">
+                        <span className="total-quantity">{ this.getItemCount() }</span>
+                        <img src="shopping-cart.svg" alt="Shopping Cart"/>
+                    </div>                    
+                    <table className="items">
+                        <tbody>
+                            { this.renderLineItem(this.props.items ) }
+                        </tbody>
+                    </table>            
+                </div>
+                <div className="bottom">
+                    <h2>Cart Total</h2>
+                    <table>
+                        <tbody>
+                            { this.renderSubtotal(this.subtotalAmount(this.props.items)) }
+                            { this.renderTaxRate(this.props.taxRate) }
+                            { this.renderTaxAmount(this.props.taxRate, this.subtotalAmount(this.props.items)) }
+                            { this.renderTotalAmount(this.props.taxRate, this.subtotalAmount(this.props.items)) }
+                        </tbody>
+                    </table>                    
+                    <button onClick={ this.checkout } className="checkout">CHECK OUT</button>
+                </div>                
             </div>
         );
     };

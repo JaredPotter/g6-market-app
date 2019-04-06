@@ -7,11 +7,13 @@
 
     .title {
         padding: 5px;
-        font-size: 14px;
+        font-size: 18px;
+        white-space: nowrap;
     }
 
     .price {
         margin-top: 10px;
+        font-size: 18px;
     }
 
     .img {
@@ -26,9 +28,7 @@
             height: 175px;
             padding: 15px;
         }
-    }
-
-    
+    }    
 
     .bottom {
         display: flex;
@@ -37,15 +37,17 @@
             background: #EEC268;
             width: 160px;
             height: 35px;
-            font-size: 14px;
+            font-size: 20px;
             font-weight: bold;
-            border-radius: 5px;
             border: 1px solid black;
             cursor: pointer;
+            width: 100%;
         }
 
         .quantity {
             display: flex;
+            width: 100%;
+            justify-content: center;
         }
 
         .quantity-button {

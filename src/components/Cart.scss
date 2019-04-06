@@ -1,37 +1,94 @@
 .cart-container {
-    padding: 6px;
-    border: 1px solid black;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    // justify-content: center;
+    justify-content: space-between;
 
-    img {
-        max-height: 1%;
+    .top {
+        display: flex;
+        flex-direction: column;
+
+        h1 {
+            text-align: center;
+        }
+
+        .cart-icon {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            height: 175px;
+            padding-bottom: 25px;
+    
+            img {
+                padding-top: 10px;
+                height: 100%;
+            }
+        
+            .total-quantity {
+                display: inline-block;
+                position: absolute;
+                top: 65px;
+    
+                border-radius: 3.235801032000001em;
+                background: #F6C155;
+                color: black;
+                padding: .38198205906665em .618046971569839em;
+                text-align: center;
+                font-size: 24px;
+                font-weight: bold;
+            }
+        }
+    
+        .items {
+            tbody tr {
+                padding: 200px;
+                border-bottom: 1px solid black;
+            }
+        }
     }
 
-    .items {
-        margin-bottom: 15px;
-    }
+    .bottom {
+        border-top: 1px solid black;
+        padding-top: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
-    .checkout {
-        background: #EEC268;
-        width: 160px;
-        height: 35px;
-        font-size: 14px;
-        font-weight: bold;
-        border-radius: 5px;
-        border: 1px solid black;
-        cursor: pointer;      
-    }
-}
+        table {
+            width: 95%;
+            padding: 5px;
 
-table, th, td {
-    border: 1px solid black;
+            * {
+                font-size: 22px;
+            }
+
+            .value {
+                text-align: right;
+                
+            }
+        }
+
+        .checkout {
+            background: #EEC268;
+            width: 98%;
+            height: 50px;
+            margin: 5px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;      
+        }
+    }
 }
 
 .quantity {
-    text-align: center;
+    
+    input {
+        text-align: center;
+        font-size: 16px;
+        width: 30px;
+
+    }
+    
 }
 
 .remove {

@@ -182,7 +182,7 @@ export default class App extends React.Component<{}, AppState> {
     let subtotal = 0;
     
     if(cartItems.length > 0) {
-      subtotal = cartItems.reduce((total, item) => total += item.price * item.quantity), 0;
+      subtotal = cartItems.reduce((total, item) => total += item.price * item.quantity, 0);
     }
 
     return subtotal;
@@ -202,12 +202,6 @@ export default class App extends React.Component<{}, AppState> {
   onQueryChange(query : string) {
     this.updateFilteredProducts(undefined, undefined, query)
   }
-
-  // renderCart() {
-  //   return (
-
-  //   );
-  // }
 
   render() {  
     const filteredProductList = this.state.filteredProductList;
@@ -236,38 +230,40 @@ export default class App extends React.Component<{}, AppState> {
     return (
       <div className="app">
         <div className="top-bar">
-          <a href="/">
-            <img src="logo_title.png" alt="G6 Market"/>
-          </a>
-          <div className="search">
-            <Search 
-              inputSet={ this.state.products }
-              searchFieldName={ 'title' }
-              minimumSearchLength={ 2 }
-              onQueryChange={ (query : string) => this.onQueryChange(query) }
-            />
-          </div>
-          <div className="top-subtotal-cart-count">
-            <div><strong>Subtotal: </strong><Dollar value={ this.getSubtotal() }/></div>
-            <div><strong>Cart: </strong> { this.getCartCount() }</div>
-          </div>
-        </div>
-        <div className="filter-bar">
-          <div>
-              <strong>Sort By:</strong>
-              <Select
-                currentValue={ this.state.currentSortByValue }
-                options={ [{value: 'name', label: 'Name' }, {value: 'price', label: 'Price'}] }
-                onSelectChange={ this.handleChangeSortBy }
+          <div className="top">
+            <a href="/">
+              <img src="logo_title.png" alt="G6 Market"/>
+            </a>
+            <div className="search">
+              <Search 
+                inputSet={ this.state.products }
+                searchFieldName={ 'title' }
+                minimumSearchLength={ 2 }
+                onQueryChange={ (query : string) => this.onQueryChange(query) }
               />
+            </div>
+            <div className="top-subtotal-cart-count">
+              <div><strong>Subtotal: </strong><Dollar value={ this.getSubtotal() }/></div>
+              <div><strong>Cart: </strong> { this.getCartCount() }</div>
+            </div>
           </div>
-          <div>
-            <strong>Category:</strong>
-            <Select
-              currentValue={ this.state.currentCategoryValue }
-              options={ this.state.categories }
-              onSelectChange={ this.updateCategoryFilter }
-            />
+          <div className="bottom">
+            <div>
+                <strong>Sort By:</strong>
+                <Select
+                  currentValue={ this.state.currentSortByValue }
+                  options={ [{value: 'name', label: 'Name' }, {value: 'price', label: 'Price'}] }
+                  onSelectChange={ this.handleChangeSortBy }
+                />
+            </div>
+            <div>
+              <strong>Category:</strong>
+              <Select
+                currentValue={ this.state.currentCategoryValue }
+                options={ this.state.categories }
+                onSelectChange={ this.updateCategoryFilter }
+              />
+            </div>        
           </div>
         </div>
         <div className="body">
